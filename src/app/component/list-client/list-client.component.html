@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">La liste des Clients</h1>
+          <nav class="">
+            <form #searchForm="ngForm" (keyup)="goToPage(searchForm.value.client)" class="form-inline">                  
+                 <input name="client" ngModel class="form-control col-4" type="text" placeholder="Client">  
+           </form>
+          </nav>
+          <table class="table table-sm">
+            <thead>
+              <th>Id</th>
+              <th>N° Client</th>
+              <th>Client</th>
+              <th>Date</th>
+              <th>Adresse</th>
+              <th>Ville</th>
+              <th>I.C.E</th>
+              <th>Registre du Commerce</th>
+              <th scope="col">Les Operations</th>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let client of client
+                "
+                [class.selected]="isSelected(client)"
+                (click)="selectClient(client)"
+              >
+                <td>{{ client.id }}</td>
+                <td>{{ client.numClient }}</td>
+                <td>{{ client.raisonSociale }}</td>
+                <td>{{ client.dateCreation | date : "dd-MM-yyyy" }}</td>
+                <td>{{ client.adresse }}</td>
+                <td>{{ client.ville.libelleV }}</td>
+                <td>{{ client.i_c_e }}</td>
+                <td>{{ client.regCommerce }}</td>
+                <td class="thClass">
+                  <button *ngIf="isSelected(client)"
+                    title="Ajouter Article"
+                    class="btn btn-outline-light material-icons ml-2 clickable"
+                  >
+                    add_comment
+                  </button> 
+                  <button *ngIf="isSelected(client)"
+                     title="détail" class="btn btn-outline-info material-icons ml-2">
+                    open_in_new
+                  </button>
+                  <button *ngIf="isSelected(client)" routerLink="/edit-client/{{client.id}}" title="Modifier" class="btn btn-outline-secondary material-icons ml-2">
+                    mode_edit
+                  </button>
+                  <button *ngIf="isSelected(client)" (click)="goToDelete(client.id)" title="Supprimer" class="btn btn-outline-danger material-icons ml-2">
+                    delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <div class="d-flex justify-content-center">
+              <button (click)="pagePrevious()" class="btn btn-light"><< Previous</button>
+              <button (click)="pageNext()" class="btn btn-light">Next >></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

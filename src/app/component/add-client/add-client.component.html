@@ -1,0 +1,309 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">Créer des Clients</h1>
+          <br>
+          <form #formFacture="ngForm" (ngSubmit)="onSubmit()">
+            
+            <div class="form-row">
+              <div class="col-4 pb-1">
+                <label for="numFacture"><strong>N° Client</strong></label>
+                <input placeholder="N° Client"
+                    type="text" 
+                    class="form-control" 
+                    name="numClient"
+                    [(ngModel)]="client.numClient"
+                    #numClient="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : numClient.errors && numClient.touched}"
+                >
+                <div [hidden]="!numClient.errors?.required" class="invalid-feedback">
+                    N° client is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="Livraison"><strong>Raison Sociale ou Nom</strong></label>
+                <input placeholder="Raison Sociale ou Nom"
+                class="form-control" 
+                name="raisonSociale"
+                [(ngModel)]="client.raisonSociale"
+                #raisonSociale="ngModel"
+                required
+                [ngClass]="{'is-invalid' : raisonSociale.errors && raisonSociale.touched}"
+                >
+                
+                <div [hidden]="!raisonSociale.errors?.required" class="invalid-feedback">
+                    Usine de Livraison is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="numCamion"><strong>I.F</strong></label>
+                <input placeholder="I.F"
+                    type="text" 
+                    class="form-control" 
+                    name="i_f"
+                    [(ngModel)]="client.i_f"
+                    #i_f="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : i_f.errors && i_f.touched}"
+                >
+                <div [hidden]="!i_f.errors?.required" class="invalid-feedback">
+                    i_f is required
+                </div>
+              </div>
+             
+             
+              
+              <div class="col-4">
+                <label for="objetMarche"><strong>I.C.E</strong></label>
+                <input placeholder="I.C.E"
+                    type="text" 
+                    class="form-control"
+                    name="i_c_e"
+                    [(ngModel)]="client.i_c_e"
+                    #i_c_e="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : i_c_e.errors && i_c_e.touched}"
+                >
+                <div [hidden]="!i_c_e.errors?.required" class="invalid-feedback">
+                    ObjetMarche is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="ObjetMois"><strong>Adresse</strong></label>
+                <input  placeholder="Adresse"
+                    type="text" 
+                    class="form-control"
+                    name="adresse"
+                    [(ngModel)]="client.adresse"
+                    #adresse="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : adresse.errors && adresse.touched}"
+                >
+                <div [hidden]="!adresse.errors?.required" class="invalid-feedback">
+                  Adresse is required
+                </div>
+              </div>
+              
+              <div class="col-4">
+                <label for="dateFacture"><strong>Date de Creation</strong></label>
+                <input
+                    type="date" 
+                    class="form-control" 
+                    name="dateCreation"
+                    [(ngModel)]="client.dateCreation"
+                    #dateCreation="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : dateCreation.errors && dateCreation.touched}"
+                >
+                <div [hidden]="!dateCreation.errors?.required" class="invalid-feedback">
+                    Date de Creation is required
+                </div>
+              </div>
+              
+              <div class="col-4">
+                <label for="objetFacture"><strong>N° de C.I.N</strong></label>
+                <input placeholder="N° de C.I.N"
+                    type="text" 
+                    class="form-control" 
+                    name="cin"
+                    [(ngModel)]="client.cin"
+                    #cin="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : cin.errors && cin.touched}"
+                >
+                <div [hidden]="!cin.errors?.required" class="invalid-feedback">
+                    CIN is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="objetFacture"><strong>N° Identification (TVA)</strong></label>
+                <input placeholder="N° Identification (TVA)"
+                    type="text" 
+                    class="form-control" 
+                    name="numIdentTva"
+                    [(ngModel)]="client.numIdentTva"
+                    #numIdentTva="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : numIdentTva.errors && numIdentTva.touched}"
+                >
+                <div [hidden]="!numIdentTva.errors?.required" class="invalid-feedback">
+                  N° Identification (TVA) is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="objetFacture"><strong>Groupe</strong></label>
+                <input placeholder="Groupe"
+                    type="text" 
+                    class="form-control" 
+                    name="groupe"
+                    [(ngModel)]="client.groupe"
+                    #groupe="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : groupe.errors && groupe.touched}"
+                >
+                <div [hidden]="!groupe.errors?.required" class="invalid-feedback">
+                  N° Identification (TVA) is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="typeFacture"><strong>Personne phy ou morale</strong></label><br>
+                <input 
+                  name="phyMorale"
+                  value="physique"
+                  [(ngModel)]="client.phyMorale" 
+                  type="radio"
+                  #phyMorale="ngModel"  
+                  class="radio "
+                  ><span class="dif">Physique</span>
+                <input 
+                  name="phyMorale"
+                  value="morale"
+                  [(ngModel)]="client.phyMorale" 
+                  type="radio"
+                  #phyMorale="ngModel" 
+                   
+                  class="radio espace"
+                  ><span class="dif">Morale</span>
+              </div>
+              <div class="col-4">
+                <label for="objetFacture"><strong>Registre du Commerce</strong></label>
+                <input placeholder="Registre du Commerce"
+                    type="text" 
+                    class="form-control" 
+                    name="regCommerce"
+                    [(ngModel)]="client.regCommerce"
+                    #regCommerce="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : regCommerce.errors && regCommerce.touched}"
+                >
+                <div [hidden]="!regCommerce.errors?.required" class="invalid-feedback">
+                  Registre du Commerce is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="objetFacture"><strong>Nombre de dépot</strong></label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    name="nombreDepot"
+                    [(ngModel)]="client.nombreDepot"
+                    #nombreDepot="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : nombreDepot.errors && nombreDepot.touched}"
+                >
+                <div [hidden]="!nombreDepot.errors?.required" class="invalid-feedback">
+                  Nombre de dépot is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="objetFacture"><strong>Capacité de transport</strong></label>
+                <input placeholder="Capacité de transport"
+                    type="text" 
+                    class="form-control" 
+                    name="capaciteTR"
+                    [(ngModel)]="client.capaciteTR"
+                    #capaciteTR="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : capaciteTR.errors && capaciteTR.touched}"
+                >
+                <div [hidden]="!capaciteTR.errors?.required" class="invalid-feedback">
+                  Capacité de transport is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="objetFacture"><strong>Nombre de véhicule</strong></label>
+                <input
+                    type="number" 
+                    class="form-control" 
+                    name="nombreVehicule"
+                    [(ngModel)]="client.nombreVehicule"
+                    #nombreVehicule="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : nombreVehicule.errors && nombreVehicule.touched}"
+                >
+                <div [hidden]="!nombreVehicule.errors?.required" class="invalid-feedback">
+                  Nombre de véhicule is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="objetFacture"><strong>Capacité de stockage</strong></label>
+                <input
+                    type="text" 
+                    class="form-control" 
+                    name="capaciteStockage"
+                    [(ngModel)]="client.capaciteStockage"
+                    #capaciteStockage="ngModel"
+                    required
+                    [ngClass]="{'is-invalid' : capaciteStockage.errors && capaciteStockage.touched}"
+                >
+                <div [hidden]="!capaciteStockage.errors?.required" class="invalid-feedback">
+                  Capacité de stockage is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="Livraison"><strong>Type de société</strong></label>
+                <select 
+                class="form-control" 
+                name="typeSociete"
+                [(ngModel)]="client.typeSociete"
+                #typeSociete="ngModel"
+                required
+                (change)="changeUsine($event)"
+                [ngClass]="{'is-invalid' : typeSociete.errors && typeSociete.touched}"
+                >
+                <option value="SARL">SARL</option>
+                <option value="SASU">SASU</option>
+                <option value="SAS">SAS</option>
+                <option value="SA">SA</option>
+                </select>
+                <div [hidden]="!typeSociete.errors?.required" class="invalid-feedback">
+                    Usine de Livraison is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+               
+                <div class="col-4 pb-1">
+                  <mat-form-field class="full-width" floatLabel="always">
+                    <label><strong>Ville</strong> </label>
+                    
+                    <input type="text" [(ngModel)]="client.ville" name="ville" matInput
+                      #ville="ngModel" (keyup)="changeVille(ville.value)" [matAutocomplete]="autoVille" required/>
+                    <mat-autocomplete #autoVille="matAutocomplete" [displayWith]="getAutoCompleteValueville">
+                      <mat-option *ngFor="let ville of vile" [value]="ville">{{ville.libelleV}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+             
+              <div class="col-4 pb-1">
+             
+              <div class="col-4 pb-1">
+                <mat-form-field class="full-width" floatLabel="always">
+                  <label><strong>Personne à contacter/fct</strong> </label>
+                  
+                  <input type="text" [(ngModel)]="client.contact" name="contact" matInput
+                    #contact="ngModel" (keyup)="getContacte(contact.value)" [matAutocomplete]="autoContact" required/>
+                    <div [hidden]="!contact.errors?.required" class="invalid-feedback">
+                      Contact is required
+                  </div>
+                  <mat-autocomplete #autoContact="matAutocomplete" [displayWith]="getAutoCompleteValue">
+                    <mat-option  *ngFor="let con of conta" [value]="con">{{con.nomPrenom}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+             </div>
+              </div>
+            <br>
+            <div class=" text-right">
+                 <button type="submit" [disabled]="!formFacture.valid" class="btn btn-success btn-block">Save</button>
+            </div>
+          </form>
+         </div>
+      </div>
+    </div>
+  </div>
+

@@ -1,0 +1,477 @@
+<h1 *ngIf="facture.valider" class="text-danger text-center">Annuler la Validation !!</h1>
+<div *ngIf="!facture.valider">
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">Créer des factures</h1>
+          <br />
+          <form #formFacture="ngForm" (ngSubmit)="onUpdate()">
+            <div class="form-row">
+              <div class="col-4 pb-1">
+                <mat-form-field class="full-width" floatLabel="always">
+                  <label><strong>Client</strong> </label>
+                  <input
+                    type="text"
+                    [(ngModel)]="facture.client"
+                    name="client"
+                    matInput
+                    #client="ngModel"
+                    (keyup)="changeClient(client.value)"
+                    [matAutocomplete]="autoClient"
+                    required
+                  />
+                  <mat-autocomplete
+                    #autoClient="matAutocomplete"
+                    [displayWith]="getAutoCompleteValueClient"
+                  >
+                    <mat-option *ngFor="let clt of clt" [value]="clt"
+                      >{{ clt.raisonSociale }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                  
+              </div>
+              <div class="col-2 pb-1">
+                <label for="numFacture"><strong>N° Client</strong></label>
+                <input
+                  disabled
+                  class="form-control"    
+                  [value]="facture.client?.numClient"/>
+              </div>
+              <div class="col-2 pb-1">
+                <label for="numFacture"><strong>I.C.E</strong></label>
+                <input 
+                  disabled
+                  class="form-control"    
+                  [value]="facture.client?.i_c_e"/>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="numFacture"><strong>Adresse</strong></label>
+                <input 
+                  disabled
+                  class="form-control"    
+                  [value]="facture.client?.adresse"/>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="numFacture"><strong>N° Facture</strong></label>
+                <input
+                  placeholder="N° Facture"
+                  type="text"
+                  class="form-control"
+                  name="numFacture"
+                  [(ngModel)]="facture.numFacture"
+                  #numFacture="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': numFacture.errors && numFacture.touched
+                  }"
+                />
+                <div
+                  [hidden]="!numFacture.errors?.required"
+                  class="invalid-feedback"
+                >
+                  numFacture is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="Livraison"><strong>Usine de Livraison</strong></label>
+                <select
+                  class="form-control"
+                  name="usineLivraison"
+                  [(ngModel)]="facture.usineLivraison"
+                  #usineLivraison="ngModel"
+                  required
+                  (change)="changeUsine($event)"
+                  [ngClass]="{
+                    'is-invalid': usineLivraison.errors && usineLivraison.touched
+                  }"
+                >
+                  <option value="usine de souk jemaa">USINE DE SOUK JEMAA</option>
+                  <option value="usine d'ait ourir">USINE D'AIT OURIR</option>
+                  <option value="usine de sidi aissa">USINE DE SIDI AISSA</option>
+                  <option value="usine de sidi bennour">
+                    USINE DE SIDI BENNOUR
+                  </option>
+                  <option value="departement parc auto (dpa)">
+                    DEPARTEMENT PARC AUTO (DPA)
+                  </option>
+                </select>
+                <div
+                  [hidden]="!usineLivraison.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Usine de Livraison is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="numCamion"><strong>N° de Camion</strong></label>
+                <input
+                  placeholder="N° de Camion"
+                  type="text"
+                  class="form-control"
+                  name="numCamion"
+                  [(ngModel)]="facture.numCamion"
+                  #numCamion="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': numCamion.errors && numCamion.touched
+                  }"
+                />
+                <div
+                  [hidden]="!numCamion.errors?.required"
+                  class="invalid-feedback"
+                >
+                  numCamion is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="typeFacture"><strong>Type de facture</strong></label
+                ><br />
+                <input
+                  name="typeFacture"
+                  value="facture"
+                  [(ngModel)]="facture.typeFacture"
+                  type="radio"
+                  #typeFacture="ngModel"
+                  class="radio"
+                /><span class="dif">Facture</span>
+                <input
+                  name="typeFacture"
+                  value="avoir"
+                  [(ngModel)]="facture.typeFacture"
+                  type="radio"
+                  #typeFacture="ngModel"
+                  class="radio espace"
+                /><span class="dif">Avoir</span>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="Devis"><strong>Exonéré de la TVA (O/N)</strong></label
+                ><br />
+                <input
+                  name="exonereTva"
+                  value="Non"
+                  [(ngModel)]="facture.exonereTva"
+                  type="radio"
+                  #exonereTva="ngModel"
+                  class="radio"
+                /><span class="dif">Non</span>
+                <input
+                  name="exonereTva"
+                  value="Oui"
+                  [(ngModel)]="facture.exonereTva"
+                  type="radio"
+                  #exonereTva="ngModel"
+                  class="radio espace"
+                /><span class="dif">Oui</span>
+              </div>
+              <div class="col-4">
+                <label for="modlivraison"
+                  ><strong>Mode de livraison</strong></label
+                >
+                <select
+                  class="form-control"
+                  name="modlivraison"
+                  [(ngModel)]="facture.modLivraison"
+                  #modLivraison="ngModel"
+                  required
+                  (change)="changeModeLivraison($event)"
+                  [ngClass]="{
+                    'is-invalid': modLivraison.errors && modLivraison.touched
+                  }"
+                >
+                  <option value="Camion 1">Camion 1</option>
+                  <option value="Camion 2">Camion 2</option>
+                  <option value="Camion 3">Camion 3</option>
+                </select>
+                <div
+                  [hidden]="!modLivraison.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Mode de livraison is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="objetMarche"><strong>Marché</strong></label>
+                <input
+                  placeholder="Marché"
+                  type="text"
+                  class="form-control"
+                  name="objetMarche"
+                  [(ngModel)]="facture.objetMarche"
+                  #objetMarche="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': objetMarche.errors && objetMarche.touched
+                  }"
+                />
+                <div
+                  [hidden]="!objetMarche.errors?.required"
+                  class="invalid-feedback"
+                >
+                  ObjetMarche is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="ObjetMois"><strong>Mois de livraison</strong></label>
+                <input
+                  placeholder="Mois"
+                  type="text"
+                  class="form-control"
+                  name="objetMois"
+                  [(ngModel)]="facture.objetMois"
+                  #objetMois="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': objetMois.errors && objetMois.touched
+                  }"
+                />
+                <div
+                  [hidden]="!objetMois.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Mois is required
+                </div>
+              </div>
+  
+              <div class="col-4">
+                <label for="dateFacture"
+                  ><strong>Date de la facture</strong></label
+                >
+                <input
+                  placeholder="Date"
+                  type="date"
+                  class="form-control"
+                  name="dateFacture"
+                  [(ngModel)]="facture.dateFacture"
+                  #dateFacture="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': dateFacture.errors && dateFacture.touched
+                  }"
+                />
+                <div
+                  [hidden]="!dateFacture.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Date de la facture is required
+                </div>
+              </div>
+              <!--<div class="col-4 pb-4">
+                  <label for="client"><strong>Client</strong></label>
+                  <select 
+                  class="form-control" 
+                  name="client"
+                  [(ngModel)]="facture.client"
+                  #client="ngModel"
+                  required
+                  (change)="changeClient($event)"
+                  [ngClass]="{'is-invalid' : client.errors && client.touched}"
+                  >
+                  <option *ngFor="let clt of clt" [value]="clt.id">{{clt.raisonSociale}}</option>
+                  </select>
+                  <div [hidden]="!client.errors?.required" class="invalid-feedback">
+                    client is required
+                </div>
+                </div>-->
+              <div class="col-8">
+                <label for="objetFacture"
+                  ><strong>Objet da la facture</strong></label
+                >
+                <input
+                  placeholder="Objet da la facture"
+                  type="text"
+                  class="form-control"
+                  name="ObjetFacture"
+                  [(ngModel)]="facture.objetFacture"
+                  #objetFacture="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': objetFacture.errors && objetFacture.touched
+                  }"
+                />
+                <div
+                  [hidden]="!objetFacture.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Objet Facture is required
+                </div>
+              </div>
+              <br />
+            </div>
+            <div class="text-right mt-4">
+              <button 
+                
+                type="submit"
+                [disabled]="!formFacture.valid"
+                class="btn btn-primary btn-block"
+              >
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-secondary" (click)="afficherArticle()">Pour Ajouter un Article cliquez ici</button>
+  <div class="row" *ngIf="afArticle">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="text-center">Ajouter un Article</h2>
+          <form #formArticle="ngForm" (ngSubmit)="onSubmitArticle()">
+            <div class="form-row">
+              <div class="col-4 pb-1">
+                <div class="col-4 pb-1">
+                  <mat-form-field class="full-width" floatLabel="always">
+                    <label><strong>Article</strong> </label>
+  
+                    <input
+                      type="text"
+                      [(ngModel)]="sousArticle.article"
+                      name="article"
+                      matInput
+                      #article="ngModel"
+                      (keyup)="changeArticle(article.value)"
+                      [matAutocomplete]="autoArticle"
+                      required
+                      
+                    />
+                    <mat-autocomplete
+                      #autoArticle="matAutocomplete"
+                      [displayWith]="getAutoCompleteValueArticle"
+                      
+                    >
+                      <mat-option *ngFor="let artcl of articl" [value]="artcl" (click)="get(artcl.id)"
+                        >{{ artcl.libarticle }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+             
+              <div class="col-2 pb-1">
+                <strong><label>Prix Unitaire</label></strong>
+                <input
+                  placeholder="Prix Unitaire"
+                  type="number"
+                  class="form-control"
+                  name="prixUnitaire"
+                  [(ngModel)]="sousArticle.prixUnitaire"
+                  #prixUnitaire="ngModel"
+                  required
+                  [value]="oneArticle.prixUnitaire"
+                  [ngClass]="{
+                    'is-invalid': prixUnitaire.errors && prixUnitaire.touched
+                  }"
+                />
+                <div
+                  [hidden]="!prixUnitaire.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Prix Unitaire is required
+                </div>
+              </div>
+              <div class="col-2">
+                <strong><label>Quantite</label></strong>
+                <input
+                  placeholder="Quantite"
+                  type="number"
+                  class="form-control"
+                  name="quantite"
+                  [(ngModel)]="sousArticle.quantite"
+                  #quantite="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': quantite.errors && quantite.touched
+                  }"
+                />
+                <div
+                  [hidden]="!prixUnitaire.errors?.required"
+                  class="invalid-feedback"
+                >
+                  quantite is required
+                </div>
+              </div>
+              <div class="col-2">
+                <strong><label>TVA</label></strong>
+                <input
+                  placeholder="TVA"
+                  type="number"
+                  class="form-control"
+                  name="tva"
+                  [(ngModel)]="sousArticle.tva"
+                  #tva="ngModel"
+                  required
+                  [value]="oneArticle.tva"
+                  [ngClass]="{ 'is-invalid': tva.errors && tva.touched }"
+                />
+                <div [hidden]="!tva.errors?.required" class="invalid-feedback">
+                  TVA is required
+                </div>
+              </div>
+            </div>
+            <div class="text-right mt-4">
+              <button
+                type="submit"
+                [disabled]="!formArticle.valid"
+                class="btn btn-success btn-block"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <button class="btn btn-secondary" (click)="afficherListeArticle()">Pour Modifier un Article cliquez ici</button>
+  <div class="row" *ngIf="afListeArticle">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">la liste des Articles</h1>
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Article</th>
+                <th>Taxe</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Montant HT</th>
+                <th>Montant TVA</th>
+                <th>Montant TTC</th>
+                <th>les Operations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sousArticle of sousArticleFacture">
+                <td>{{ sousArticle.id }}</td>
+                <td>{{ sousArticle.article?.libarticle }}</td>
+                <td>{{ sousArticle.tva }} %</td>
+                <td>{{ sousArticle.quantite | number : "1.2-2"}}</td>
+                <td>{{ sousArticle.prixUnitaire | number : "1.2-2" }}</td>
+                <td>{{ calculerHT(sousArticle) | number : "1.2-2" }}</td>
+                <td>{{ calculerTVA(sousArticle) | number : "1.2-2" }}</td>
+                <td>
+                  {{
+                    calculerHT(sousArticle) + calculerTVA(sousArticle)
+                      | number : "1.2-2"
+                  }}
+                </td>
+                <td><button title="Modifier" class="btn btn-outline-secondary material-icons ml-2">
+                  mode_edit
+                </button></td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

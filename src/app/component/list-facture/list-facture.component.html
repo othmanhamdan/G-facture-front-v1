@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="text-center">La liste des factures</h1>
+        <nav class="">
+          <form #searchForm="ngForm" (keyup)="goToPage(searchForm.value.nFacture)" class="form-inline">                  
+               <input name="nFacture" ngModel class="form-control col-4" type="text" placeholder="N° Facture">  
+         </form>
+        </nav>
+        <table class="table table-sm">
+          <thead>
+            <th>Id</th>
+            <th>N° Facture</th>
+            <th>Type de facture</th>
+            <th>Date</th>
+            <th>Client</th>
+            <th scope="col">Objet de la facture</th>
+            <th scope="col">Marché</th>
+            <th>Mois de livraison</th>
+            <th>les Operations </th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let facture of facture 
+              "
+              [class.selected]="isSelected(facture)"
+              (click)="selectFacture(facture)"
+            >
+              <td>{{ facture.id }}</td>
+              <td>{{ facture.numFacture }}</td>
+              <td>{{ facture.typeFacture }}</td>
+              <td>{{ facture.dateFacture | date : "dd-MM-yyyy" }}</td>
+              <td>{{ facture.client?.raisonSociale }}</td>
+              <td>{{ facture.objetFacture }}</td>
+              <td>{{ facture.objetMarche }}</td>
+              <td>{{ facture.objetMois }}</td>
+              <td class="thClass">
+                
+                <button *ngIf="isSelected(facture)" (click)="openDetail(facture)" title="détail" class="btn btn-outline-light material-icons ml-1">
+                  open_in_new
+                </button>
+                <!--<button *ngIf="isSelected(facture)"
+                  title="Ajouter Article"
+                  class="btn btn-outline-light material-icons ml-2 clickable"
+                  (click)="openArticle(facture)"
+                >
+                  add_comment
+                </button>-->
+                <button *ngIf="isSelected(facture)" routerLink="/edit-facture/{{facture.id}}" title="Modifier" [disabled]="facture.valider" class="btn btn-outline-light material-icons ml-2">
+                  mode_edit
+                </button>
+                <button *ngIf="isSelected(facture)" (click)="valider(facture)" [disabled]="facture.valider" title="Valider" class="btn btn-outline-light material-icons ml-2">
+                  done
+                </button>
+                <button *ngIf="isSelected(facture)" (click)="annuler(facture)" [disabled]="!facture.valider" title="Annuler la validation" class="btn btn-outline-light material-icons ml-2">
+                  close
+                </button>
+                <button *ngIf="isSelected(facture)" (click)="telecharger(facture)" [disabled]="!facture.valider" title="Imprimer la facture" class="btn btn-outline-light material-icons ml-2">
+                  print
+                </button> 
+                <button *ngIf="isSelected(facture)" (click)="goToDelete(facture.id)" [disabled]="facture.valider" title="Supprimer" class="btn btn-outline-danger material-icons ml-2">
+                  delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+          <button (click)="pagePrevious()" class="btn btn-light"><< Previous</button>
+          <button (click)="pageNext()" class="btn btn-light">Next >></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

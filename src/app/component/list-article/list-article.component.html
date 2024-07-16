@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">La liste des Articles</h1>
+          <nav class="">
+            <form #searchForm="ngForm" (keyup)="goToPage(searchForm.value.libarticle)" class="form-inline">                  
+                 <input name="libarticle" ngModel class="form-control col-4" type="text" placeholder="Article">  
+           </form>
+          </nav>
+          <table class="table table-sm">
+            <thead>
+              <th>Id</th>
+              <th>Code Article</th>
+              <th>Article</th>
+              <th>Prix Unitaire</th>
+              <th>TVA</th>
+              <th scope="col">Unite</th>
+              <th scope="col">Usine de Fabrication</th>
+              <th>Classe de Produit</th>
+              <th>Les Operations</th>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let article of article 
+                "
+                [class.selected]="isSelected(article)"
+                (click)="selectArticle(article)"
+              >
+                <td>{{ article.id }}</td>
+                <td>{{ article.codeArticle }}</td>
+                <td>{{ article.libarticle }}</td>
+                <td>{{ article.prixUnitaire | number: '1.2-2'}}</td>
+                <td>{{ article.tva }}</td>
+                <td>{{ article.unite }}</td>
+                <td>{{ article.usineFabrication }}</td>
+                <td>{{ article.classeProduit }}</td>
+                <td class="thClass">
+                  <button *ngIf="isSelected(article)" routerLink="/edit-article/{{article.id}}" title="Modifier" class="btn btn-outline-secondary material-icons ml-2">
+                    mode_edit
+                  </button>
+                  <button *ngIf="isSelected(article)" (click)="goToDelete(article.id)" title="Supprimer" class="btn btn-outline-danger material-icons ml-2">
+                    delete
+                </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <button (click)="pagePrevious()" class="btn btn-light"><< Previous</button>
+            <button (click)="pageNext()" class="btn btn-light">Next >></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

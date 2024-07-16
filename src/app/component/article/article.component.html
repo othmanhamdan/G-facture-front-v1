@@ -1,0 +1,106 @@
+<h2 class="text-center">Ajouter un Article</h2>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="text-center">N° Facture : {{ factur.numFacture }}</h1>
+
+        <br />
+        <form #formArticle="ngForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">           
+            <div class="col-12 pb-4">
+              <label for="client"><strong>Article</strong></label>
+              <select 
+              class="form-control" 
+              name="article"
+              [(ngModel)]="sousArticle.article"
+              #article="ngModel"
+              required
+              (change)="changeArticle($event)"
+              [ngClass]="{'is-invalid' : article.errors && article.touched}"
+              >
+              <option *ngFor="let artcl of articl" [value]="artcl.id">{{artcl.libarticle}}</option>
+              </select>
+              <div [hidden]="!article.errors?.required" class="invalid-feedback">
+                client is required
+            </div>
+            </div>
+            <div class="col-4 pb-1">
+              <label>Prix Unitaire</label>
+              <input
+                placeholder="Prix Unitaire"
+                type="number"
+                class="form-control"
+                name="prixUnitaire"
+                [(ngModel)]="sousArticle.prixUnitaire"
+                #prixUnitaire="ngModel"
+                required
+                [ngClass]="{ 'is-invalid': prixUnitaire.errors && prixUnitaire.touched }"
+              />
+              <div
+                [hidden]="!prixUnitaire.errors?.required"
+                class="invalid-feedback"
+              >
+              Prix Unitaire is required
+              </div>
+            </div>
+            <div class="col-4">
+              <label>Quantite</label>
+              <input
+                placeholder="Quantite"
+                type="number"
+                class="form-control"
+                name="quantite"
+                [(ngModel)]="sousArticle.quantite"
+                #quantite="ngModel"
+                required
+                [ngClass]="{
+                  'is-invalid': quantite.errors && quantite.touched
+                }"
+              />
+              <div
+                [hidden]="!prixUnitaire.errors?.required"
+                class="invalid-feedback"
+              >
+              quantite is required
+              </div>
+            </div>
+            <div class="col-4">
+              <strong><label>TVA</label></strong> 
+              <input
+                placeholder="TVA"
+                type="number"
+                class="form-control"
+                name="tva"
+                [(ngModel)]="sousArticle.tva"
+                #tva="ngModel"
+                required
+                [ngClass]="{ 'is-invalid': tva.errors && tva.touched }"
+              />
+              <div [hidden]="!tva.errors?.required" class="invalid-feedback">
+                TVA is required
+              </div>
+            </div>
+
+           
+          
+          </div>
+          <div class="text-right mt-4">
+            <button
+              type="submit"
+              [disabled]="!formArticle.valid"
+              class="btn btn-success btn-block"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+        <div>
+          <button (click)="closed()" class="btn btn-danger btn-block mt-3">
+            close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="card col-md-12">
+        <h1 class="text-center">la liste des Articles</h1>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Article</th>
+                    <th>Taxe</th>
+                    <th>Quantité</th>
+                    <th>Prix Unitaire</th>
+                    <th>Montant HT</th>
+                    <th>Montant TVA</th>
+                    <th>Montant TTC</th>
+                    <th>Operations</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sousArticle of sousArticle">
+                    <td>{{sousArticle.id}}</td>
+                    <td>{{sousArticle.article?.libarticle}}</td>
+                    <td>{{sousArticle.tva }} %</td>
+                    <td>{{sousArticle.quantite | number: '1.2-2'}}</td>
+                    <td>{{sousArticle.prixUnitaire | number: '1.2-2'}}</td>
+                    <td>{{calculerHT(sousArticle) | number: '1.2-2'}}</td>
+                    <td>{{ calculerTVA(sousArticle) | number: '1.2-2' }}</td>
+                    <td>{{calculerHT(sousArticle) + calculerTVA(sousArticle) | number: '1.2-2' }}</td>
+                    
+                    <td>
+                        
+                        <button [hidden]="facture?.valider" (click)="goToDelete(sousArticle.id)" title="Supprimer" class="btn btn-outline-danger material-icons ml-2">
+                            delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="text-success h5 text-right">
+            Total Monatnt HT : {{ calculateTotalHT() | number : "1.2-2" }} DH
+          </p>
+        <p class="text-success h5 text-right">Total Monatnt TTC : {{calculateTotal() | number: '1.2-2'}} DH</p>
+        <div>
+            <button class="btn btn-danger btn-block mt-3" mat-dialog-close>Fermer</button>
+        </div>
+    </div>
+    
+
+</div>

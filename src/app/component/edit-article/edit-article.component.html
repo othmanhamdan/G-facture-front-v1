@@ -1,0 +1,262 @@
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body"><h2 class="text-center">Ajouter des Articles</h2>
+          <br />
+          <form #formArticle="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="col-4 pb-1">
+                <strong><label>Code Article</label></strong> 
+                <input
+                  placeholder="Code"
+                  type="text"
+                  class="form-control"
+                  name="codeArticle"
+                  [(ngModel)]="art.codeArticle"
+                  #codeArticle="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': codeArticle.errors && codeArticle.touched
+                  }"
+                />
+                <div
+                  [hidden]="!codeArticle.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Code Article is required
+                </div>
+              </div>
+              
+             
+             
+  
+              <div class="col-4 pb-1">
+                <strong><label>Unite de facturation</label></strong> 
+                <input
+                  placeholder="Unite"
+                  type="text"
+                  class="form-control"
+                  name="unite"
+                  [(ngModel)]="art.unite"
+                  #unite="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': unite.errors && unite.touched
+                  }"
+                />
+                <div [hidden]="!unite.errors?.required" class="invalid-feedback">
+                  Unite is required
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="modelivraison"><strong>Famille de produit</strong></label>
+                <select 
+                class="form-control" 
+                name="familleProduit"
+                [(ngModel)]="art.familleProduit"
+                #familleProduit="ngModel"
+                required
+                (change)="changeFamilleProduit($event)"
+                [ngClass]="{'is-invalid' : familleProduit.errors && familleProduit.touched}"
+                >
+                <option value="Camion 1">Fourniture</option>
+                <option value="Camion 2">prestation de service</option>
+                </select>
+                <div [hidden]="!familleProduit.errors?.required" class="invalid-feedback">
+                  Famille de produit is required
+                </div>
+              </div>
+              <div class="col-8 pb-1">
+                <strong><label>Libellé Article</label></strong> 
+                <input
+                  placeholder="Libelle"
+                  type="text"
+                  class="form-control"
+                  name="libelle"
+                  [(ngModel)]="art.libarticle"
+                  #libelle="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': libelle.errors && libelle.touched
+                  }"
+                />
+                <div
+                  [hidden]="!libelle.errors?.required"
+                  class="invalid-feedback"
+                >
+                Libelle is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+                <strong><label>Prix Unitaire</label></strong> 
+                <input
+                  placeholder="Prix Unitaire"
+                  type="number"
+                  class="form-control"
+                  name="prixUnitaire"
+                  [(ngModel)]="art.prixUnitaire"
+                  #prixUnitaire="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': prixUnitaire.errors && prixUnitaire.touched
+                  }"
+                />
+                <div
+                  [hidden]="!prixUnitaire.errors?.required"
+                  class="invalid-feedback"
+                >
+                Prix Unitaire is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+                <label for="Devis"><strong>Article Vendable (O/N)</strong></label><br>
+                <input 
+                  name="articleVentable"
+                  value="Oui"
+                  [(ngModel)]="art.articleVentable" 
+                  type="radio"
+                  #articleVentable="ngModel"  
+                  class="radio"
+                  checked
+                  ><span class="dif">Oui</span>
+                <input 
+                  name="articleVentable"
+                  value="Non"
+                  [(ngModel)]="art.articleVentable" 
+                  type="radio"
+                  #articleVentable="ngModel" 
+                  class="radio espace"
+                  ><span class="dif">Non</span>
+            
+              </div>
+              <div class="col-4 pb-1">
+                <label for="Devis"><strong>Article Fabriqué/Acheté (F/A)</strong></label><br>
+                <input 
+                  name="fabrique"
+                  value="Achete"
+                  [(ngModel)]="art.fabrique" 
+                  type="radio"
+                  #fabrique="ngModel"  
+                  class="radio"
+                  checked
+                  ><span class="dif">Acheté</span>
+                <input 
+                  name="fabrique"
+                  value="Fabrique"
+                  [(ngModel)]="art.fabrique" 
+                  type="radio"
+                  #fabrique="ngModel" 
+                  class="radio espace"
+                  ><span class="dif">Fabriqué</span>
+            
+              </div>
+             
+              <div class="col-4">
+                <label for="modelivraison"><strong>Classe de produit</strong></label>
+                <select 
+                class="form-control" 
+                name="classeProduit"
+                [(ngModel)]="art.classeProduit"
+                #classeProduit="ngModel"
+                required
+                (change)="changeClasseProduit($event)"
+                [ngClass]="{'is-invalid' : classeProduit.errors && classeProduit.touched}"
+                >
+                <option value="CAO">CAO</option>
+                <option value="EB">EB</option>
+                <option value="CANAUX & SUPPORTS">CANAUX & SUPPORTS</option>
+                <option value="MHM">MHM</option>
+                <option value="BATIMENT G.C">BATIMENT G.C</option>
+                <option value="AGREGATS">AGREGATS</option>
+                <option value="GAZOIL">GASOIL</option>
+                <option value="TFSEM">TFSEM</option>
+                <option value="DIVERS">DIVERS</option>
+                <option value="BVA">BVA</option>
+                </select>
+                <div [hidden]="!classeProduit.errors?.required" class="invalid-feedback">
+                  Classe de produit is required
+                </div>
+              </div>
+              <div class="col-4">
+                <strong><label>Date de début de fabrication</label></strong> 
+                <input
+                  placeholder="Date Article"
+                  type="date"
+                  class="form-control"
+                  name="dateArticle"
+                  [(ngModel)]="art.dateArticle"
+                  #dateArticle="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': dateArticle.errors && dateArticle.touched
+                  }"
+                />
+                <div
+                  [hidden]="!dateArticle.errors?.required"
+                  class="invalid-feedback"
+                >
+                  quantite is required
+                </div>
+              </div>
+              <div class="col-4">
+                <strong><label>Usine de Fabrication</label></strong> 
+                <input
+                  placeholder="Usine de Fabrication"
+                  type="text"
+                  class="form-control"
+                  name="usineFabrication"
+                  [(ngModel)]="art.usineFabrication"
+                  #usineFabrication="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      usineFabrication.errors && usineFabrication.touched
+                  }"
+                />
+                <div
+                  [hidden]="!usineFabrication.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Usine Fabrication is required
+                </div>
+              </div>
+              <div class="col-4">
+                <strong><label>TVA</label></strong> 
+                <input
+                  placeholder="TVA"
+                  type="number"
+                  class="form-control"
+                  name="tva"
+                  [(ngModel)]="art.tva"
+                  #tva="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                    tva.errors && tva.touched
+                  }"
+                />
+                <div
+                  [hidden]="!tva.errors?.required"
+                  class="invalid-feedback"
+                >
+                  TVA is required
+                </div>
+              </div>
+            </div>
+            <div class="text-right mt-4">
+              <button
+                type="submit"
+                [disabled]="!formArticle.valid"
+                class="btn btn-primary btn-block"
+              >
+                Update
+              </button>
+            </div>
+          </form>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
