@@ -1,0 +1,156 @@
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body"><h2 class="text-center">Encaissement</h2>
+          <br />
+          <form #formArticle="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="col-4 pb-1">
+                <strong><label>N° Encaissement</label></strong> 
+                <input
+                  placeholder="N° Encaissement"
+                  type="text"
+                  class="form-control"
+                  name="numEncssm"
+                  [(ngModel)]="encaissemet.numEncssm"
+                  #numEncssm="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': numEncssm.errors && numEncssm.touched
+                  }"
+                />
+                <div
+                  [hidden]="!numEncssm.errors?.required"
+                  class="invalid-feedback"
+                >
+                N° Encaissement is required
+                </div>
+              </div>
+              <div class="col-4">
+                <strong><label>Date d'encaissemet</label></strong> 
+                <input
+                  placeholder="Date d'encaissemet"
+                  type="date"
+                  class="form-control"
+                  name="dateEncssm"
+                  [(ngModel)]="encaissemet.dateEncssm"
+                  #dateEncssm="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': dateEncssm.errors && dateEncssm.touched
+                  }"
+                />
+                <div
+                  [hidden]="!dateEncssm.errors?.required"
+                  class="invalid-feedback"
+                >
+                Date d'encaissemet is required
+                </div>
+              </div>
+              <div class="col-4">
+                <strong><label>Date d'échéance</label></strong> 
+                <input
+                  placeholder="Date d'échéance"
+                  type="date"
+                  class="form-control"
+                  name="dateEcheance"
+                  [(ngModel)]="encaissemet.dateEcheance"
+                  #dateEcheance="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': dateEcheance.errors && dateEcheance.touched
+                  }"
+                />
+                <div
+                  [hidden]="!dateEcheance.errors?.required"
+                  class="invalid-feedback"
+                >
+                Date d'échéance is required
+                </div>
+              </div>
+             
+             
+  
+              <div class="col-4 pb-1">
+                <strong><label>Nature d'encaissemet</label></strong> 
+                <input
+                  placeholder="Nature d'encaissemet"
+                  type="text"
+                  class="form-control"
+                  name="natureEncssm"
+                  [(ngModel)]="encaissemet.natureEncssm"
+                  #natureEncssm="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': natureEncssm.errors && natureEncssm.touched
+                  }"
+                />
+                <div [hidden]="!natureEncssm.errors?.required" class="invalid-feedback">
+                    Nature d'encaissemet is required
+                </div>
+              </div>
+             
+              <div class="col-4 pb-1">
+                <strong><label>Montant</label></strong> 
+                <input
+                  placeholder="Montant"
+                  type="number"
+                  class="form-control"
+                  name="montant"
+                  [(ngModel)]="encaissemet.montant"
+                  #montant="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': montant.errors && montant.touched
+                  }"
+                />
+                <div
+                  [hidden]="!montant.errors?.required"
+                  class="invalid-feedback"
+                >
+                Montant is required
+                </div>
+              </div>
+              <div class="col-4 pb-1">
+                <strong><label>Observation</label></strong> 
+                <input
+                  placeholder="Observation"
+                  type="text"
+                  class="form-control"
+                  name="observation"
+                  [(ngModel)]="encaissemet.observation"
+                  #observation="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': observation.errors && observation.touched
+                  }"
+                />
+                <div
+                  [hidden]="!observation.errors?.required"
+                  class="invalid-feedback"
+                >
+                Observation is required
+                </div>
+              </div>
+            </div>
+            <div class="text-right mt-4">
+              <button
+                type="submit"
+                [disabled]="!formArticle.valid"
+                class="btn btn-success btn-block"
+              >
+                Save
+              </button>
+              
+            </div>
+          </form>
+          <button (click)="closed()" class="btn btn-danger btn-block mt-3">
+            close
+          </button>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

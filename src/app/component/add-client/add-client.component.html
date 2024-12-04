@@ -26,13 +26,14 @@
                 <label for="Livraison"><strong>Raison Sociale ou Nom</strong></label>
                 <input placeholder="Raison Sociale ou Nom"
                 class="form-control" 
+                id="raisonSociale"
                 name="raisonSociale"
                 [(ngModel)]="client.raisonSociale"
                 #raisonSociale="ngModel"
                 required
                 [ngClass]="{'is-invalid' : raisonSociale.errors && raisonSociale.touched}"
                 >
-                
+                <div *ngIf="raisonSocialError" class="text-danger">{{ raisonSocialError }}</div>
                 <div [hidden]="!raisonSociale.errors?.required" class="invalid-feedback">
                     Usine de Livraison is required
                 </div>

@@ -3,6 +3,9 @@ import { ClientService } from 'src/app/services/client.service';
 import { Client } from 'src/app/shared/client';
 import Swal from 'sweetalert2';
 
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { EncaissementComponent } from '../encaissement/encaissement.component';
+
 @Component({
   selector: 'app-list-client',
   templateUrl: './list-client.component.html',
@@ -12,7 +15,9 @@ export class ListClientComponent implements OnInit {
 
   client : any[]=[];
   selectedClient?: Client;
-  constructor(private clientService : ClientService) { }
+  constructor(private clientService : ClientService,
+              private dialog : MatDialog
+  ) { }
   currentPage = 0;
   ngOnInit(): void {
     this.getClient();
@@ -74,6 +79,16 @@ export class ListClientComponent implements OnInit {
       }
       
     })  
+  }
+  openDetail(client : any){
+    const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true
+      dialogConfig.width = "60%";
+      dialogConfig.height= "70%";
+      dialogConfig.data = {
+        id : client.id
+      }
+    this.dialog.open(EncaissementComponent,dialogConfig)
   }
   
 

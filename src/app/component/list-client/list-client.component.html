@@ -38,13 +38,16 @@
                 <td>{{ client.regCommerce }}</td>
                 <td class="thClass">
                   <button *ngIf="isSelected(client)"
-                    title="Ajouter Article"
+                    title="Encaisser"
                     class="btn btn-outline-light material-icons ml-2 clickable"
-                  >
+                    (click)="openDetail(client)"
+                    >
                     add_comment
                   </button> 
                   <button *ngIf="isSelected(client)"
-                     title="détail" class="btn btn-outline-info material-icons ml-2">
+                      
+                      routerLink="/listeEncaissement/{{client.id}}"
+                      title="détail" class="btn btn-outline-info material-icons ml-2">
                     open_in_new
                   </button>
                   <button *ngIf="isSelected(client)" routerLink="/edit-client/{{client.id}}" title="Modifier" class="btn btn-outline-secondary material-icons ml-2">

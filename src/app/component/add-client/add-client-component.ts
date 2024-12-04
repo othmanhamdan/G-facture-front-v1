@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ClientService } from 'src/app/services/client.service';
 import { ContactService } from 'src/app/services/contact.service';
 import { VilleService } from 'src/app/services/ville.service';
@@ -14,6 +16,8 @@ import { Ville } from 'src/app/shared/ville';
   styleUrls: ['./add-client.component.css']
 })
 export class AddClientComponent implements OnInit {
+  raison: string = '';
+  raisonSocialError: string = '';
   contactById: any;
   client: Client = {
     id: 0,
@@ -59,10 +63,14 @@ export class AddClientComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit() {
+    if (this.raisonSocialError) {
+      console.log('Form has errors.');
+      return;
+    }
     console.log(this.client);
     this.clientService.save(this.client).subscribe(client => {
       console.log(client),
-        this.router.navigate(['/listClient']);
+      this.router.navigate(['/listClient'])
 
     });
   }
@@ -111,4 +119,28 @@ export class AddClientComponent implements OnInit {
       console.log(this.client)
     })
   }
+  ngAfterViewInit() {
+    
+    const raisonSocialeInput = document.getElementById('raisonSociale');
+    if (raisonSocialeInput){
+      fromEvent(raisonSocialeInput, 'input').pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap(() => this.clientService.checkIfRaisonSocialExists(this.client))
+      ).subscribe(
+        exists => {
+          this.raisonSocialError = exists ? 'Raison Social already exists.' : '';
+        },
+        err => {
+          console.error(err);
+        }
+      );
+
+
+
+      
+    }
+    
+  }
+
 }

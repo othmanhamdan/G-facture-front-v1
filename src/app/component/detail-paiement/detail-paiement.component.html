@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">La liste des Paiements</h1>
+          <nav class="">
+            <form #searchForm="ngForm" (keyup)="goToPage(searchForm.value.paiement)" class="form-inline">                  
+                 <input name="paiement" ngModel class="form-control col-4" type="text" placeholder="Paiement">  
+           </form>
+          </nav>
+          <table class="table table-sm">
+            <thead>
+              <th>Id</th>
+              <th>N° Facture</th>
+              <th>Montant Facture</th>
+              <th>Montant Regle</th>
+              <th>Montant Restant</th>
+              <th scope="col">Les Operations</th>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let paiement of paiement
+                "
+                [class.selected]="isSelected(paiement)"
+                (click)="selectClient(paiement)"
+                [ngClass]="{'bg-danger': paiement.mon_facture > paiement.mon_regle }"
+                class="bg-success"
+                
+              >
+                <td >{{ paiement.id }}</td>
+                <td>{{ paiement.num_facture }}</td>
+                <td>{{ paiement.mon_facture  | number: '1.2-2'}}</td>
+                <td>{{ paiement.mon_regle  | number: '1.2-2'}}</td>
+                <td>{{ paiement.mon_facture - paiement.mon_regle  | number: '1.2-2'}}</td>
+                <td class="thClass">
+                  
+                  
+                  <button *ngIf="isSelected(paiement)" (click)="openDetail(paiement)" [disabled]="paiement.mon_regle >= paiement.mon_facture" title="Modifier" class="btn btn-outline-secondary material-icons ml-2">
+                    mode_edit
+                  </button>
+                  <button *ngIf="isSelected(paiement)" (click)="goToDelete(paiement.id)" title="Supprimer" class="btn btn-outline-light material-icons ml-2">
+                    delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <div class="d-flex justify-content-center">
+              <button (click)="pagePrevious()" class="btn btn-light"><< Previous</button>
+              <button (click)="pageNext()" class="btn btn-light">Next >></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

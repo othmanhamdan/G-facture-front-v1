@@ -1,0 +1,82 @@
+<div class="text-danger h3 text-center" *ngIf="total <= 0">il n'y a aucunes factures pour le client : {{client?.raisonSociale}}</div>
+<div class="row" *ngIf="total > 0">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center">La liste d'encaissement pour le Client : {{client?.raisonSociale}}</h1>
+        
+          <div class="d-flex justify-content-between">
+            <p class="h4 text text-success">Montant payé : {{totalpaye | number: '1.2-2'}}</p>
+            <p class="h4 mx-auto text-danger">Montant TTC : {{total | number: '1.2-2'}}</p>
+          </div>
+          <span class="h4 mx-auto text-danger">Montant Restant : {{total - totalpaye | number: '1.2-2'}}</span>
+          
+          <nav class="">
+            <form #searchForm="ngForm" (keyup)="goToPage(searchForm.value.numEncssm)" class="form-inline">                  
+                 <input name="numEncssm" ngModel class="form-control col-4" type="text" placeholder="Numero d'encaissement">  
+           </form>
+          </nav>
+          <table class="table table-sm">
+            <thead>
+              <th>Id</th>
+              <th>Numero d'encaissement</th>
+              <th>date d'encaissement </th>
+              <th>date echeance</th>
+              <th>Nature d'encaissement</th>
+              <th>Montant</th>
+              <th>Observation</th>
+              <th scope="col">Les Operations</th>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let encaisse of encaisse
+                "
+                [class.selected]="isSelected(encaisse)"
+                (click)="selectClient(encaisse)"
+              >
+                <td>{{ encaisse.id }}</td>
+                <td>{{ encaisse.numEncssm }}</td>
+                <td>{{ encaisse.dateEncssm | date : "dd-MM-yyyy"}}</td>
+                <td>{{ encaisse.dateEcheance | date : "dd-MM-yyyy" }}</td>
+                <td>{{ encaisse.natureEncssm }}</td>
+                <td>{{ encaisse.montant | number: '1.2-2'}}</td>
+                <td>{{ encaisse.observation }}</td>
+                <td class="thClass">
+                  <button *ngIf="isSelected(encaisse)"
+                    title="Encaisser"
+                    class="btn btn-outline-light material-icons ml-2 clickable"
+                    routerLink="/addPaiement/{{encaisse.id}}"
+                    >
+                    add_comment
+                  </button> 
+                  <button *ngIf="isSelected(encaisse)"
+                    title="Détail"
+                    class="btn btn-outline-info material-icons ml-2 clickable"
+                    routerLink="/listePaiement/{{encaisse.id}}"
+                    >
+                    open_in_new
+                  </button> 
+                  
+                  <button *ngIf="isSelected(encaisse)" title="Modifier" class="btn btn-outline-secondary material-icons ml-2">
+                    mode_edit
+                  </button>
+                  <button *ngIf="isSelected(encaisse)" (click)="goToDelete(encaisse.id)" title="Supprimer" class="btn btn-outline-danger material-icons ml-2">
+                    delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <div class="d-flex justify-content-center">
+              <button (click)="pagePrevious()" class="btn btn-light"><< Previous</button>
+              <button (click)="pageNext()" class="btn btn-light">Next >></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

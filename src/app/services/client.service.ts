@@ -36,5 +36,8 @@ export class ClientService {
     const url = `${this.apiUrl}/client/${id}`;
     return this.http.delete<any>(url);
   }
+  checkIfRaisonSocialExists(client : Client): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/client/exists?raisonSocial=${client.raisonSociale}`);
+  }
 
 }

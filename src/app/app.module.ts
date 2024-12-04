@@ -25,6 +25,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditFactureComponent } from './component/edit-facture/edit-facture.component';
 import { EditArticleComponent } from './component/edit-article/edit-article.component';
 import { EditClientComponent } from './component/edit-client/edit-client.component';
+import { EncaissementComponent } from './component/encaissement/encaissement.component';
+import { DetailEncaissementComponent } from './component/detail-encaissement/detail-encaissement.component';
+import { DetailPaiementComponent } from './component/detail-paiement/detail-paiement.component';
+import { EditPaiementComponent } from './component/edit-paiement/edit-paiement.component';
+import { AddPaiementComponent } from './component/add-paiement/add-paiement.component';
+import { VideComponent } from './component/vide/vide.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +47,13 @@ import { EditClientComponent } from './component/edit-client/edit-client.compone
     ListArticleComponent,
     EditFactureComponent,
     EditArticleComponent,
-    EditClientComponent
+    EditClientComponent,
+    EncaissementComponent,
+    DetailEncaissementComponent,
+    DetailPaiementComponent,
+    EditPaiementComponent,
+    AddPaiementComponent,
+    VideComponent
   ],
   imports: [
     BrowserModule,

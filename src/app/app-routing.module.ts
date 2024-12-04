@@ -10,6 +10,10 @@ import { ListArticleComponent } from './component/list-article/list-article.comp
 import { EditFactureComponent } from './component/edit-facture/edit-facture.component';
 import { EditArticleComponent } from './component/edit-article/edit-article.component';
 import { EditClientComponent } from './component/edit-client/edit-client.component';
+import { DetailEncaissementComponent } from './component/detail-encaissement/detail-encaissement.component';
+import { DetailPaiementComponent } from './component/detail-paiement/detail-paiement.component';
+import { AddPaiementComponent } from './component/add-paiement/add-paiement.component';
+import { VideComponent } from './component/vide/vide.component';
 
 const routes: Routes = [
   {path : 'facture', component : AddFactureComponent},
@@ -21,6 +25,10 @@ const routes: Routes = [
   {path : 'edit-facture/:id' , component : EditFactureComponent},
   {path : 'edit-article/:id' , component : EditArticleComponent},
   {path : 'edit-client/:id' , component : EditClientComponent},
+  {path : 'listeEncaissement/:id' , component : DetailEncaissementComponent},
+  {path : 'listePaiement/:id' , component : DetailPaiementComponent},
+  {path : 'addPaiement/:id' , component : AddPaiementComponent},
+  {path : 'vide' , component : VideComponent},
 ];
 
 @NgModule({

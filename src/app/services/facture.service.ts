@@ -48,5 +48,9 @@ export class FactureService {
     const url=`${this.apiUrl}/facture/update`;
     return this.http.put(url, facture);
   }
+  getAllFacture(keyword : string) :Observable<any>{
+    const url = `${this.apiUrl}/facture/all?keyword=${keyword}`;
+    return this.http.get(url);
+  }
 
 }

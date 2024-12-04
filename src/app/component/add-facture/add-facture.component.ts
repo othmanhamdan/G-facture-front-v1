@@ -154,10 +154,10 @@ export class AddFactureComponent implements OnInit {
     
   }
   viderArticle(){
-    this.sousArticle.article = null || undefined
-    this.sousArticle.prixUnitaire = null || undefined
-    this.sousArticle.quantite = null || undefined
-    this.sousArticle.tva = null || undefined
+    this.sousArticle.article =  undefined
+    this.sousArticle.prixUnitaire =  undefined
+    this.sousArticle.quantite = undefined
+    this.sousArticle.tva = undefined
   }
   getAllArticle(){
     if (this.facture.id !== undefined)
